@@ -421,7 +421,9 @@ func UpdateMsgDisplayed(configFile string) error {
 	if fullConfig.Global.UpdateCheckConfig == nil {
 		fullConfig.Global.UpdateCheckConfig = &UpdateConfig{}
 	}
-	fullConfig.Global.UpdateCheckConfig.LastPrompted = today
+	if *fullConfig.Global.UpdateCheck {
+		fullConfig.Global.UpdateCheckConfig.LastPrompted = today
+	}
 	err = WriteFullConfig(configFile, fullConfig)
 	return err
 }
